@@ -11,6 +11,15 @@
 import { Button, Input, Modal } from 'native-base';
 import React, { useState } from 'react';
 
+/**
+ * @function EditTodo - Component for editing todo via modal
+ * @param {Object} props - React props object
+ * @param {Function} props.editTodo - Function for handling label change
+ * @param {Function} props.setShowModal - Function for setting the modal state
+ * @param {boolean} props.showModal - Modal state
+ * @param {Object} props.todo - Todo object
+ * @returns {Object} - React object
+ */
 export default function EditModal({ editTodo, setShowModal, showModal, todo }) {
   const [text, onChange] = useState(todo.title);
 

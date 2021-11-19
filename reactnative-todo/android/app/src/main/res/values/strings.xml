@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">reactnativetodo</string>
+    <string name="app_name">React Native Todo</string>
     <!-- OAuth 2.0 Client Details -->
     <string name="forgerock_oauth_client_id" translatable="false">reactNativeClientAndroid</string>
     <string name="forgerock_oauth_redirect_uri" translatable="false">org.forgerock.demo:/oauth2redirect</string>

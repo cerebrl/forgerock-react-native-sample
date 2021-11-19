@@ -9,9 +9,9 @@ IMPORTANT: This is not a demonstration of React Native itself or instructional f
 1. An instance of ForgeRock's Access Manager (AM), either within a ForgeRock's Identity Cloud tenant, your own private installation or locally installed on your computer
 2. Node >= 14.2.0 (recommended: install via official package installer)
 3. Knowledge of using the Terminal/Command Line
-4. Ability to generate security certs (recommended: mkcert (installation instructions here)
+4. Ability to generate security certs
 5. This project "cloned" to your computer
-6. Xcode 12
+6. Xcode 12+
 
 ## Installation
 
@@ -88,11 +88,12 @@ $ npm install
 # Install ios dependencies
 $ cd ios/
 $ pod install
+$ cd ..
 ```
 
 If you are running the project through Xcode or Android Suite, you can build the project there. You can also build the project in the terminal using the React Native cli.
 
-Please see [ React Native Development Enviornment Setup ](https://reactnative.dev/docs/environment-setup) for more information.
+Please see [React Native Development Enviornment Setup](https://reactnative.dev/docs/environment-setup) for more information.
 
 ### Update Your `/etc/hosts` File
 
@@ -118,6 +119,28 @@ $ npm run server
 
 Now, you should be able to go to your simulated device and use the application. This client will make requests to your AM instance, (the Authorization Server in OAuth terms), which will be running on whatever domain you set, and `https://api.example.com:9443` as the REST API for your todos (the Resource Server). Enjoy!
 
+## Debugging
+
+There is currently a bug in React Native as of 0.66 that causes random bugs when using the Chrome Remote Debugger with the iOS Simulator. You can see the issue in the following Github tickets:
+
+1. https://github.com/react-native-community/cli/issues/1081
+2. https://github.com/facebook/react-native/issues/28531
+
+A change has been made to the AppDelegate file to support Safari's debugger which does not result in the same buggy behavior. We recommend you open Safari, click on the "Debugger" menu item, select the Simulator you are using and then click the "JSContext" item. We also recommend enabling "Automatically Show Web Inspector for JSContexts". This will ensure a new inspector is opened when the app is reloaded (just close the old inactive one).
+
+For more information on debugging [see the React Native page about debugging](https://reactnative.dev/docs/debugging).
+
+## Development
+
+## The Tech Stack
+
+1. ForgeRock's [Native Android](https://github.com/ForgeRock/forgerock-android-sdk) and [iOS SDK](https://github.com/ForgeRock/forgerock-ios-sdk)
+2. Sample bridge code for each platform
+3. [React Native](https://reactnative.dev/) for building the UI
+4. [React Navigation](https://reactnavigation.org/) for routing between screens
+5. [NativeBase](https://nativebase.io/) for theming and styling the UI
+6. [AsyncStorage](https://react-native-async-storage.github.io/async-storage/)
+
 ### React Client
 
 To modify the client portion of this project, you'll need to be familiar with the following React patterns:
@@ -128,7 +151,7 @@ To modify the client portion of this project, you'll need to be familiar with th
 4. [React Navigation](https://reactnavigation.org/)
 5. [React Native](https://reactnative.dev/)
 
-#### Styling
+### Styling
 
 We utilize Native Base for styling of both `iOS` and `Android` apps. Please see [Native Base](https://nativebase.io/) here for more information.
 
@@ -152,6 +175,13 @@ The ForgeRock Javascript SDK is developed with TypeScript, so type definitions a
 4. Bridge code as been altered, so be aware of name changes
 5. If you get this error:
 
-`[!] CocoaPods could not find compatible versions for pod "FRAuth":`
+  `[!] CocoaPods could not find compatible versions for pod "FRAuth":`
 
-run `pod repo update` and then `pod install`.
+  run `pod repo update` and then `pod install`.
+
+6. If the iOS app acts buggy, try each of the below; move to the next one if issue continues:
+
+    1. Restart the app and Metro
+    2. Didn't work? Using Xcode, clean the build folder and rebuild/rerun the app
+    3. If that doesn't work, remove the the following: `node_modules`, `package-lock.json`, `ios/Pods`, `ios/Podfile.lock` and then reinstall dependencies with `npm i` and `pod install`
+    4. If still having issues, within the simulator, click the Home button and long press the React Native application to remove it; restart from Xcode.
