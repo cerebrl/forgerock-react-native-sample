@@ -205,13 +205,13 @@ public class FRAuthSampleBridge: NSObject {
                * unique data attributes.
                ************************************************************************* */
               switch value.originalType {
-              case .String:
+              case .string:
                 thisCallback.setValue(value.value as! String)
-              case .Int:
+              case .int:
                 thisCallback.setValue(value.value as! Int)
-              case .Double:
+              case .double:
                 thisCallback.setValue(value.value as! Double)
-              case .Bool:
+              case .bool:
                 thisCallback.setValue(value.value as! Bool)
               default:
                 break
